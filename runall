@@ -1,0 +1,17 @@
+#!/bin/sh
+
+echo "1 and 2 run in sequence"
+./job1 >>out 2>>err
+./job2 >>out 2>>err
+
+echo "1 and 2 run in parallel"
+./job1 >>out 2>>err &
+./job2 >>out 2>>err &
+
+echo "1 and 2 run in parallel but job 3 runs after job 1"
+./job1 >>out 2>>err &
+(./job2 >>out 2>>err && echo "job2 success." >>out && ./job3 >>out 2>>err ) &
+
+echo "1 and 3 run in parallel but job 3 fails job 2 never runs"
+./job1 >>out 2>>err &
+(./job3 >>out 2>>err && echo "job3 success." >>out && ./job3 >>out 2>>err )  &

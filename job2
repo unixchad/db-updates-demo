@@ -1,0 +1,7 @@
+#!/bin/sh
+
+echo "job2 start" >&1
+sleep 3
+echo "job2 end" >&2
+
+exit 0
